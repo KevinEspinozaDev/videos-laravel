@@ -1,6 +1,7 @@
-<?php
+@<?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Filesystem\Filesystem;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,11 +22,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', array(
+    'as' => 'home',
+    'uses' => 'App\Http\Controllers\HomeController@index'
+));
 
 //Rutas del controlador de Videos
 Route::get('/crear-video', array(
@@ -38,4 +38,9 @@ Route::post('/guardar-video', array(
     'as' => 'saveVideo',
     'middleware' => 'auth',
     'uses' => 'App\Http\Controllers\VideoController@saveVideo'
+));
+
+Route::get('/miniatura/{filename}', array(
+    'as' => 'imageVideo',
+    'uses' => 'App\Http\Controllers\VideoController@getImage'
 ));
