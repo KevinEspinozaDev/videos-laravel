@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use App\Models\Video;
+use App\Models\User;
 
 class HomeController extends Controller
 {

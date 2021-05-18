@@ -10,6 +10,7 @@ use Illuminate\Filesystem\Filesystem;
 
 use App\Models\Video;
 use App\Models\Comment;
+use App\Models\User;
 
 class VideoController extends Controller
 {

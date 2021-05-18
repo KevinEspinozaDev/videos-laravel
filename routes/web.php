@@ -1,4 +1,4 @@
-@<?php
+<?php
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Filesystem\Filesystem;
@@ -15,6 +15,7 @@ use Illuminate\Filesystem\Filesystem;
 */
 
 use App\Models\Video;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('home');
