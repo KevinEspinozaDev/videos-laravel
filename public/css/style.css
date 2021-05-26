@@ -1,8 +1,6 @@
-body{
 
-}
 
-#video-list .panel-body{
+#video-list .card-body{
     padding-left: 0px;
 }
 
@@ -10,10 +8,17 @@ body{
     width: 185px;
     height: 120px;
     overflow: hidden;
+    
+}
+
+.datos-video{
+    display: block;
 }
 
 .thumbnail{
     background-size: cover;
+    width: 100%;
+    height: 100%;
 }
 
 .video-image-mask .video-image{

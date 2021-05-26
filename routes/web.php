@@ -17,9 +17,10 @@ use Illuminate\Filesystem\Filesystem;
 use App\Models\Video;
 use App\Models\User;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', array(
+    'as' => '/',
+    'uses' => 'App\Http\Controllers\HomeController@index'
+));
 
 Auth::routes();
 
@@ -45,3 +46,42 @@ Route::get('/miniatura/{filename}', array(
     'as' => 'imageVideo',
     'uses' => 'App\Http\Controllers\VideoController@getImage'
 ));
+
+Route::get('/video/{video_id}', array(
+    'as' => 'detailVideo',
+    'uses' => 'App\Http\Controllers\VideoController@getVideoDetail'
+));
+
+Route::get('/video-file/{filename}', array(
+    'uses' => 'App\Http\Controllers\VideoController@getVideo'
+))->name('fileVideo');
+
+//Comentarios
+Route::post('/comment', [
+    'middleware' => 'auth',
+    'uses' => 'App\Http\Controllers\CommentController@store'
+])->name('comment');
+
+//Eliminar comentario
+Route::get('/delete-comment/{comment_id}', array(
+    'middleware' => 'auth',
+    'uses' => 'App\Http\Controllers\CommentController@delete'
+))->name('commentDelete');
+
+//Eliminar video
+Route::get('/delete-video/{video_id}', array(
+    'middleware' => 'auth',
+    'uses' => 'App\Http\Controllers\VideoController@delete'
+))->name('videoDelete');
+
+//Editar video
+Route::get('/editar-video/{video_id}', array(
+    'middleware' => 'auth',
+    'uses' => 'App\Http\Controllers\VideoController@edit'
+))->name('videoEdit');
+
+//Actualizar video
+Route::post('/update-video/{video_id}', array(
+    'middleware' => 'auth',
+    'uses' => 'App\Http\Controllers\VideoController@update'
+))->name('updateVideo');

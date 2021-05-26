@@ -12,7 +12,14 @@ class Comment extends Model
     protected $table = "comments";
 
     //relacion many to one
+    // Todos los comentarios asociados a un usuario
     public function user(){
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
+
+    //relacion many to one
+    //Todos los comentarios asociados a un video
+    public function video(){
+        return $this->belongsTo('App\Models\Video', 'video_id');
     }
 }

@@ -40,7 +40,7 @@
                 <input type="file" name="video" id="video" class="form-control">
             </div>
 
-            <div class="form group">
+            <div class="form group mt-3">
                 <button class="btn btn-success">Subir Video</button>
             </div>
         </form>

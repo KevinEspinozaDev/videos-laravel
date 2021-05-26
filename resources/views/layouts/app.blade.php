@@ -25,7 +25,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     Videos Laravel
                 </a>
 
@@ -98,6 +98,22 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+
+        <!-- Footer -->
+        <footer class="page-footer font-small  blue bg-dark text-light">
+
+            <!-- Copyright -->
+            <div class="footer-copyright text-center py-3">© 2021 Copyright:
+                Laravel + Angular + API REST course
+            </div>
+            <!-- Copyright -->
+
+        </footer>
+        <!-- Footer -->
+
+
     </div>
+    <!-- end app -->
 </body>
 </html>

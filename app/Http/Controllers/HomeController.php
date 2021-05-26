@@ -27,6 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         $videos = Video::orderBy('id','desc')->paginate(5);
+        
         return view('home', array(
             'videos' => $videos
         ));
