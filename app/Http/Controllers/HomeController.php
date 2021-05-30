@@ -16,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('web');
     }
 
     /**
@@ -28,8 +28,8 @@ class HomeController extends Controller
     {
         $videos = Video::orderBy('id','desc')->paginate(5);
         
-        return view('home', array(
+        return view('home', [
             'videos' => $videos
-        ));
+        ]);
     }
 }

@@ -24,10 +24,9 @@ Route::get('/', array(
 
 Auth::routes();
 
-Route::get('/home', array(
-    'as' => 'home',
+Route::get('/', array(
     'uses' => 'App\Http\Controllers\HomeController@index'
-));
+))->name('home');
 
 //Rutas del controlador de Videos
 Route::get('/crear-video', array(
@@ -85,3 +84,18 @@ Route::post('/update-video/{video_id}', array(
     'middleware' => 'auth',
     'uses' => 'App\Http\Controllers\VideoController@update'
 ))->name('updateVideo');
+
+// Buscar video
+Route::get('/buscar/{search?}/{filter?}', [
+    'uses' => 'App\Http\Controllers\VideoController@search'
+])->name('videoSearch');
+
+// Limpiar caché de Laravel
+Route::get('clear-cache', function(){
+    $code = Artisan::call('cache:clear');
+});
+
+/* USERS */
+Route::get('/canal/{user_id}', [
+    'uses' => 'App\Http\Controllers\UserController@channel'
+])->name('channel');

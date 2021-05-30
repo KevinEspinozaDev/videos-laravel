@@ -22,7 +22,7 @@
             
             <div class="form-group">
                 <label for="title">Titulo</label>
-                <input value="{{ old('title') }}" type="text" name="title" id="title" class="form-control">
+                <input value="{{ old('title') }}" required type="text" name="title" id="title" class="form-control">
             </div>
 
             <div class="form-group">
@@ -32,12 +32,12 @@
 
             <div class="form-group">
                 <label for="image">Miniatura</label>
-                <input type="file" name="image" id="image" class="form-control">
+                <input type="file" required name="image" id="image" class="form-control">
             </div>
 
             <div class="form-group">
                 <label for="video">Archivo de Video</label>
-                <input type="file" name="video" id="video" class="form-control">
+                <input type="file" required name="video" id="video" class="form-control">
             </div>
 
             <div class="form group mt-3">

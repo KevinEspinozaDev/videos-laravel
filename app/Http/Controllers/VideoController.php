@@ -51,11 +51,19 @@ class VideoController extends Controller
             $video->video_path = $video_path;
         }
 
-        $video->save();
+        if ($video->save()) {
+            $message = "El video se ha subido correctamente!";
+            $result = 1;
+        }else{
+            $message = "El video no se ha podido subir...";
+            $result = 0;
+        }
+        
 
-        return redirect()->route('home')->with(array(
-            'message' => 'El video se ha subido correctamente!'
-        ));
+        return redirect()->route('home')->with([
+            'message' => $message,
+            'result' => $result
+        ]);
     }
 
     public function getImage($filename){
@@ -138,9 +146,7 @@ class VideoController extends Controller
         // Se eliminan los archivos anteriores
         if ($user && $video->user_id == $user->id) {
 
-            //Delete files stored
-            Storage::disk('images')->delete($video->image);
-            Storage::disk('videos')->delete($video->video_path);
+            
 
             /* Se inicia la actualizacion */
             $video->user_id = $user->id;
@@ -150,6 +156,9 @@ class VideoController extends Controller
             //Subida de miniatura
             $image = $request->file('image');
             if ($image) {
+                //Borra el archivo anterior de la carpeta del servidor
+                Storage::disk('images')->delete($video->image);
+                
                 date_default_timezone_set('America/Argentina/Buenos_Aires');
                 $fecha = date('Y-m-d-H-i');
                 $image_path = $fecha."-".$image->getClientOriginalName();
@@ -160,6 +169,9 @@ class VideoController extends Controller
             //Subida del video
             $video_file = $request->file('video');
             if ($video_file) {
+                //Borra el archivo anterior de la carpeta del servidor
+                Storage::disk('videos')->delete($video->video_path);
+
                 $video_path = $fecha."-".$video_file->getClientOriginalName();
                 \Storage::disk('videos')->put($video_path, \File::get($video_file));
                 $video->video_path = $video_path;
@@ -175,5 +187,53 @@ class VideoController extends Controller
         $video->update();
 
         return redirect()->route('home')->with($message);
+    }
+
+    public function search($search = null, $filter = null){
+
+        if (is_null($search)) {
+            $search = \Request::get('search');
+
+            if (is_null($search)) {
+                return redirect()->route('home');
+            }
+
+            return redirect()->route('videoSearch', [
+                'search' => $search
+            ]);
+        }
+
+        if (is_null($filter) && \Request::get('filter') && !is_null($search)) {
+            $filter = \Request::get('filter');
+
+            return redirect()->route('videoSearch', [
+                'search' => $search,
+                'filter' => $filter
+            ]);
+        }
+
+        $column = 'id';
+        $order = 'desc';
+
+        if (!is_null($filter)) {
+            if ($filter == 'new') {
+                $column = 'id';
+                $order = 'desc';
+            }elseif ($filter == 'old') {
+                $column = 'id';
+                $order = 'asc';
+            }elseif ($filter == 'alfa') {
+                $column = 'title';
+                $order = 'asc';
+            }
+        }
+
+        // se busca coincidencia, no un titulo exactamente igual a $search
+        $videos = Video::where('title', 'LIKE', '%'.$search.'%')->orderBy($column, $order)->paginate(5);
+
+        return view('video/search', [
+            'videos' => $videos,
+            'search' => $search
+        ]);
     }
 }

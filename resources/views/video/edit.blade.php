@@ -42,12 +42,12 @@
                     </div>
                     @endif
 
-                    <i>No suba otro archivo si quiere conservar el mismo.</i>
+                    <div class="alert alert-warning"><i>Si quiere conservar el archivo anterior, omita este campo</i></div>
                     <input type="file" name="image" id="image" class="form-control">
                 </div>
 
                 <div class="form-group">
-                    <label for="video">Archivo de Video</label> <br>
+                    <label for="video">Archivo de Video</label>
 
                     <!-- Video -->
                     <div class="col-12">
@@ -58,7 +58,7 @@
                     </div>
                     
 
-                    <i>No suba otro archivo si quiere conservar el mismo.</i>
+                    <div class="alert alert-warning"><i>Si quiere conservar el archivo anterior, omita este campo</i></div>
                     <input type="file" name="video" id="video" class="form-control">
                 </div>
 
